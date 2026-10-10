@@ -19,7 +19,7 @@ An 8-bit, text-based survival game where every Yes or No could be your last.
 
 1. **Pick your survivor.** Rook brings combat, Echo brings stealth, and Patch brings scavenging. Your choice lasts the whole run.
 2. **Choose your raid.** Explore Mercy Pharmacy, Hollow Metro, or Checkpoint 09 with one weapon and one piece of gear.
-3. **Make the call.** Survive five randomized Yes/No encounters. Consider the actions, rewards, and damage—“No” isn't a free escape.
+3. **Make the call.** Survive five connected Yes/No encounters in a randomly selected story. Consider the actions, rewards, and damage—“No” isn't a free escape.
 4. **Bring home the cure.** Each completed raid earns a fragment, upgrades your equipment, and raises the danger. Recover all three fragments to win.
 
 **Four weapons. Four gear items. Thirty encounters. One life.**<br>
@@ -50,7 +50,7 @@ Built with **HTML, CSS, and vanilla JavaScript**. Static, browser-based, and fre
 | `art.js` | Original pixel SVG artwork |
 | `styles.css` | Responsive retro styling, menu motion, and optional CRT effect |
 
-Encounters are shuffled each raid; stat-based probability checks decide outcomes. Google Fonts are optional, with monospace fallbacks. Rule checks and balance simulations run with `node verify.cjs`.
+Each raid randomly selects one of two ordered stories for its location; stat-based probability checks decide outcomes. Google Fonts are optional, with monospace fallbacks. Rule checks and balance simulations run with `node verify.cjs`.
 
 Implementation details, rules, hosting instructions, and animation tooling are in [DEVELOPMENT.md](DEVELOPMENT.md).
 
@@ -75,3 +75,8 @@ Open **[http://localhost:8080](http://localhost:8080)**. Use `python3` or `py` i
 [Enter the ruins ↗](https://z-raid.thehawk6353.workers.dev/) · [Matthew Hawkins](https://github.com/Matthew-Hawk)
 
 </div>
+
+
+### Stories in the ruins
+
+Each raid zone now has two connected five-moment stories, picked randomly when you enter. Yes and No have distinct success and failure scenes, with context for your survivor, gear and pursuit. Use **What happened** and **Gear & pursuit** to read the result without scrolling. The difficulty rules remain unchanged.

@@ -1,6 +1,6 @@
 // Compare fixed-answer strategies with informed choices. No dependencies.
 const fs=require('fs'),vm=require('vm');
-const env={window:{}};vm.createContext(env);for(const f of ['content.js','engine.js'])vm.runInContext(fs.readFileSync(f,'utf8'),env);
+const env={window:{}};vm.createContext(env);for(const f of ['content.js','stories.js','engine.js'])vm.runInContext(fs.readFileSync(f,'utf8'),env);
 const C=env.window.ZContent,R=env.window.ZRules;
 const seed=value=>()=>{value=(value*1664525+1013904223)>>>0;return value/4294967296;};
 const count=Number(process.argv[2]||600),summary={};

@@ -34,7 +34,7 @@ const assert=require('assert');
     for(const id of ['rook','echo','patch']){await click(`[data-id="${id}"]`);await fit(`survivor ${id}`);}
     await click('[data-action="choose-character"]');
     // Browser run uses deterministic success to visit every state without luck.
-    await page.evaluate(()=>{const start=ZRules.startRaid;ZRules.startRaid=s=>{const ok=start(s,()=>0);if(ok)s.encounters=ZContent.locations.find(l=>l.id===s.location).encounters.slice(window.qaSlice||0,(window.qaSlice||0)+5);return ok;};const resolve=ZRules.resolve;ZRules.resolve=(s,a)=>resolve(s,a,()=>window.qaFail?.99999:0);});
+    await page.evaluate(()=>{const start=ZRules.startRaid;ZRules.startRaid=s=>{return start(s,()=>window.qaSlice?.99999:0);};const resolve=ZRules.resolve;ZRules.resolve=(s,a)=>resolve(s,a,()=>window.qaFail?.99999:0);});
     for(let raid=0;raid<(viewport.width===375?6:3);raid++){
       if(raid===3){await click('[data-action="new"]');await click('[data-action="choose-character"]');}
       else if(raid)await click('[data-action="prepare"]');
@@ -60,7 +60,7 @@ const assert=require('assert');
         assert(!(await page.locator('.decision-grid').innerText()).includes('%'));
         if(viewport.width===375&&raid===0&&i===0)await page.screenshot({path:'assets/preview-mobile-raid.png'});
         if(viewport.width===1440&&raid===0&&i===0)await page.screenshot({path:'assets/preview-raid.png'});
-        await click(`[data-action="${i%2?'no':'yes'}"]`);await fit('outcome');
+        await click(`[data-action="${i%2?'no':'yes'}"]`);await fit('outcome');await click('[data-story="1"]');await fit('gear and pursuit');await click('[data-story="0"]');
         await page.evaluate(()=>document.querySelector('[data-action="next"]').click());assert(await page.locator('[data-action="next"]').isVisible());
         await click('[data-action="next"]');
       }

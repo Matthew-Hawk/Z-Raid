@@ -12,7 +12,7 @@ Use mouse, touch, or Tab and Enter/Space. Start Game → choose one of three sur
 
 - Combat handles fighting and force; stealth handles concealment and navigation; scavenging handles searching and repairs.
 - Internal check odds = base + character stat × 4 + equipment bonus × 5 + min(2, supplies) − location hazard − completed raids × 10 − pursuit × 2 − encounter index, clamped to 10–85%. A uniform random roll below those odds succeeds. Check odds and rolls are hidden from players.
-- Each location has 10 encounters. Fisher–Yates shuffle draws 5 without replacement per raid. Both responses use independent checks and rewards. No is never a guaranteed safe escape.
+- Each location has two ordered five-encounter stories, picked randomly at raid start. Together they preserve the original 10 encounter profiles. Both responses have their own checks, rewards and narration. No is never a guaranteed safe escape.
 - Every route has an authored pursuit consequence, from −2 to +4. This applies on success as well as failure; a failed check adds one extra pursuit. Pursuit stays between 0 and 8. Loud and quiet actions appear under both Yes and No, so neither answer is always the quiet route. Players see route hints, the pursuit tracker and the result. Later decisions inherit the consequences of earlier ones.
 - Failure costs the displayed damage: encounter base + 5 per completed raid + floor(pursuit / 2) − vest armor (including upgrades). Successful checks award supplies and sometimes healing. Medical kits add healing; field packs add supplies. All health changes are capped. Zero health causes immediate death.
 - Camp restores 8 + 2 × min(6, supplies) health (maximum 20), capped at character maximum, consumes all supplies and clears pursuit. Supplies add up to 2 percentage points of morale during the raid. Pursuit also starts at zero each raid.
@@ -22,14 +22,15 @@ Use mouse, touch, or Tab and Enter/Space. Start Game → choose one of three sur
 
 ## Static hosting / Cloudflare Pages
 
-Upload `index.html`, `styles.css`, `content.js`, `engine.js`, `art.js`, `game.js`, and `assets/` together. On Cloudflare Pages select framework **None**, leave build command empty, and set output directory to the repository root (`.`). No secrets, server functions or dependencies are needed. All file references are relative, so subdirectory hosting works too. Google Fonts is optional; built-in monospace fallbacks keep the game readable offline.
+Upload `index.html`, `styles.css`, `content.js`, `stories.js`, `engine.js`, `art.js`, `game.js`, and `assets/` together. On Cloudflare Pages select framework **None**, leave build command empty, and set output directory to the repository root (`.`). No secrets, server functions or dependencies are needed. All file references are relative, so subdirectory hosting works too. Google Fonts is optional; built-in monospace fallbacks keep the game readable offline.
 
 ## Project structure
 
 - `index.html`: semantic application shell and accessible field-manual dialog.
 - `styles.css`: responsive retro interface, typography and optional CRT scanlines.
 - `content.js`: three characters, three locations, eight equipment items and 30 encounters.
-- `engine.js`: centralized probability, health, upgrades, shuffled encounter selection and guarded state transitions.
+- `stories.js`: six connected raid stories and action, survivor, equipment and pursuit narration.
+- `engine.js`: centralized probability, health, upgrades, random storyline selection with ordered encounters and guarded state transitions.
 - `game.js`: viewport-aware screens, master/detail selection, four-step preparation, compact raid status, and six-page field manual.
 - `art.js`: original pixel SVG portraits, location scenes, weapons, gear, zombies, fragments and ending artwork.
 - `viewport-check.cjs`: browser QA for actual element bounds and panel overflow, all selections, manual pages, both outcomes, summaries and endings. Run with optional width argument (e.g. `375`) to limit to one viewport. `browser-check.cjs` runs this suite.
@@ -45,10 +46,19 @@ Upload `index.html`, `styles.css`, `content.js`, `engine.js`, `art.js`, `game.js
 
 The UI uses a three-row viewport shell (header, flexible game area, footer), `100dvh` to follow mobile browser chrome, width and height breakpoints, and safe-area padding. It changes layout rather than shrinking or hiding essential content: character/item selectors share one detail pane, preparation has four steps with revisable selections, raid choices sit side by side, and the field manual has six pages. The supported minimum is 375 × 667 CSS pixels. Smaller effective viewports or unusually large text may need scrolling; natural overflow preserves readable content rather than clipping it. Gameplay probabilities and balance are unchanged by this UI update.
 
-All 144 character/location/weapon/gear combinations passed rule checks, including probability bounds at different pursuit levels, unique draws, upgrades, fragments only on living raid completion, rising difficulty, immediate death, reset, third-raid victory, and duplicate-action guards. Targeted checks verify that successful loud actions increase pursuit and worsen later checks/damage, quiet actions reduce it, pressure is capped and resets, camp recovery caps at 20, and both answers include loud and quiet routes.
+All 144 character/location/weapon/gear combinations passed rule checks, including probability bounds at different pursuit levels, ordered story selection, upgrades, fragments only on living raid completion, rising difficulty, immediate death, reset, third-raid victory, and duplicate-action guards. Targeted checks verify that successful loud actions increase pursuit and worsen later checks/damage, quiet actions reduce it, pressure is capped and resets, camp recovery caps at 20, and both answers include loud and quiet routes.
 
 The previous balance won about 52% with all-Yes and 76% with informed choices. After pursuit, reduced recovery and tougher checks, a 115,200-run comparison produced average win rates of **8.3% all-Yes, 15.4% all-No, 10.6% random, and 31.8% informed**. Informed results ranged from 10–55% across loadouts; every loadout remained able to win. Fixed-answer strategies can still win through luck; adapting choices is substantially more effective. These are simulation estimates, not a substitute for player feedback.
 
 Headless Edge verified actual element bounds and panel overflow at 375 × 667, 390 × 844, 768 × 1024, 1366 × 768 and 1440 × 900. Checks cover every survivor, location, weapon and gear choice at all upgrade tiers, four preparation steps and revising selections, all six manual pages, raid decisions/results, summaries, death, restart and victory. No scrolling, clipping, hidden-check leakage or JavaScript errors were found. An extra SE run covers all 30 encounter texts and live resizing between phone and desktop. Motion controls, persistence, reduced motion and starting the game also passed. Preview screenshots are in `assets/preview-*.png`. The development browser scripts use this workstation's bundled Playwright; for another machine, replace the require path with an installed Playwright package. The game itself has no package dependency.
 
 No placeholder artwork. All catalog and ending icons are original SVG pixel drawings, and all art is bundled or inline. CRT is off by default and disabled under reduced motion. This first version has no audio, persistent save or multiplayer.
+
+
+## Raid narration
+
+Each location has two five-moment storylines, selected with equal probability at raid start. Moments stay ordered throughout the raid; returning to the same location can select either story again. All thirty original numerical encounter profiles are preserved across the six arcs. Each Yes/No route has its own success and failure passage (120 passages), followed by survivor-specific context. Gear & pursuit shows equipment and the pursuit present before the check, plus its change. This fiction explains the outcome without exposing odds or adding random rolls. Fatal outcomes retain their narration before run progress resets.
+
+Results use two compact views to preserve the 375 × 667 minimum. The story conclusion appears at camp. `story-check.cjs` checks all 5,760 character/loadout result combinations, unchanged numerical effects, selection order, RNG usage and fatal context. `story-browser-check.cjs` checks 2,186 scene, context, fatal and conclusion screens at SE and desktop sizes.
+
+A 230,400-run before/after comparison measured all-Yes 8.2% → 8.5%, all-No 15.0% → 15.7%, random 10.7% → 11.2%, and informed 31.4% → 32.8%. Ordered encounter grouping changes the encounter distribution, but probability, damage, rewards, pursuit and recovery formulas are unchanged. Adaptive choices remain substantially more effective than a fixed answer.
