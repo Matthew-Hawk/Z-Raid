@@ -22,7 +22,7 @@ Use mouse, touch, or Tab and Enter/Space. Start Game → choose one of three sur
 
 ## Static hosting / Cloudflare Pages
 
-Upload `index.html`, `styles.css`, `content.js`, `engine.js`, `game.js`, and `assets/` together. On Cloudflare Pages select framework **None**, leave build command empty, and set output directory to the repository root (`.`). No secrets, server functions or dependencies are needed. All file references are relative, so subdirectory hosting works too. Google Fonts is optional; built-in monospace fallbacks keep the game readable offline.
+Upload `index.html`, `styles.css`, `content.js`, `engine.js`, `art.js`, `game.js`, and `assets/` together. On Cloudflare Pages select framework **None**, leave build command empty, and set output directory to the repository root (`.`). No secrets, server functions or dependencies are needed. All file references are relative, so subdirectory hosting works too. Google Fonts is optional; built-in monospace fallbacks keep the game readable offline.
 
 ## Project structure
 
@@ -30,7 +30,9 @@ Upload `index.html`, `styles.css`, `content.js`, `engine.js`, `game.js`, and `as
 - `styles.css`: responsive retro interface, typography and optional CRT scanlines.
 - `content.js`: three characters, three locations, eight equipment items and 30 encounters.
 - `engine.js`: centralized probability, health, upgrades, shuffled encounter selection and guarded state transitions.
-- `game.js`: screens, interaction, inline original pixel SVG portraits, location scenes, weapons, gear, zombies, fragments and ending artwork.
+- `game.js`: viewport-aware screens, master/detail selection, four-step preparation, compact raid status, and six-page field manual.
+- `art.js`: original pixel SVG portraits, location scenes, weapons, gear, zombies, fragments and ending artwork.
+- `viewport-check.cjs`: browser QA for actual element bounds and panel overflow, all selections, manual pages, both outcomes, summaries and endings. Run with optional width argument (e.g. `375`) to limit to one viewport. `browser-check.cjs` runs this suite.
 - `assets/title.png`: generated pixel-art ruined-city backdrop, created with the built-in image tool. Prompt: “Original cohesive 8-bit scene: ruined city street at night, abandoned pharmacy on left, barricaded military checkpoint in distance, toxic green lights, three small survivors seen from behind facing a shadowy zombie horde. Crisp chunky pixel clusters, limited charcoal navy, muted teal, acidic lime, amber palette. Wide cinematic composition, no text, logos or watermark.”
 - `assets/title-loop.gif`: 48-frame, six-second infinite loop of the title art with animated ground fog, rain/ash and slowly pulsing lights (960 × 384, about 1.9 MB). `tools/animate_hero.py` reproduces it with Pillow. No runtime dependency is required.
 - The title menu also has gentle ambient glow, signal breathing, and hover/focus movement. The header's Motion toggle persists your preference locally. Turning it off or enabling reduced motion loads the original still PNG and disables these animations. CRT remains a separate setting.
@@ -41,10 +43,12 @@ Upload `index.html`, `styles.css`, `content.js`, `engine.js`, `game.js`, and `as
 
 ## Verification results
 
+The UI uses a three-row viewport shell (header, flexible game area, footer), `100dvh` to follow mobile browser chrome, width and height breakpoints, and safe-area padding. It changes layout rather than shrinking or hiding essential content: character/item selectors share one detail pane, preparation has four steps with revisable selections, raid choices sit side by side, and the field manual has six pages. The supported minimum is 375 × 667 CSS pixels. Smaller effective viewports or unusually large text may need scrolling; natural overflow preserves readable content rather than clipping it. Gameplay probabilities and balance are unchanged by this UI update.
+
 All 144 character/location/weapon/gear combinations passed rule checks, including probability bounds at different pursuit levels, unique draws, upgrades, fragments only on living raid completion, rising difficulty, immediate death, reset, third-raid victory, and duplicate-action guards. Targeted checks verify that successful loud actions increase pursuit and worsen later checks/damage, quiet actions reduce it, pressure is capped and resets, camp recovery caps at 20, and both answers include loud and quiet routes.
 
 The previous balance won about 52% with all-Yes and 76% with informed choices. After pursuit, reduced recovery and tougher checks, a 115,200-run comparison produced average win rates of **8.3% all-Yes, 15.4% all-No, 10.6% random, and 31.8% informed**. Informed results ranged from 10–55% across loadouts; every loadout remained able to win. Fixed-answer strategies can still win through luck; adapting choices is substantially more effective. These are simulation estimates, not a substitute for player feedback.
 
-Headless Edge verified the actual desktop and 390px mobile interface: loadout changes, all 15 encounter transitions, victory, death, fresh run, dialog and keyboard controls, no horizontal overflow and no JavaScript errors. Preview screenshots are in `assets/preview-*.png`. `browser-check.cjs` is the development browser check and uses this workstation's bundled Playwright; for another machine, replace its require path with an installed Playwright package. The game itself has no package dependency.
+Headless Edge verified actual element bounds and panel overflow at 375 × 667, 390 × 844, 768 × 1024, 1366 × 768 and 1440 × 900. Checks cover every survivor, location, weapon and gear choice at all upgrade tiers, four preparation steps and revising selections, all six manual pages, raid decisions/results, summaries, death, restart and victory. No scrolling, clipping, hidden-check leakage or JavaScript errors were found. An extra SE run covers all 30 encounter texts and live resizing between phone and desktop. Motion controls, persistence, reduced motion and starting the game also passed. Preview screenshots are in `assets/preview-*.png`. The development browser scripts use this workstation's bundled Playwright; for another machine, replace the require path with an installed Playwright package. The game itself has no package dependency.
 
 No placeholder artwork. All catalog and ending icons are original SVG pixel drawings, and all art is bundled or inline. CRT is off by default and disabled under reduced motion. This first version has no audio, persistent save or multiplayer.
