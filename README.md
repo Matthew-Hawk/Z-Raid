@@ -25,13 +25,15 @@ An 8-bit, text-based survival game where every Yes or No could be your last.
 **Four weapons. Four gear items. Thirty encounters. One life.**<br>
 Collect supplies, recover at camp, and adapt your loadout between raids. Die, and the run is over.
 
+Loud actions attract a pursuing horde even when they succeed. Quiet routes can shake it off. Pursuit carries into later encounters, making checks tougher and injuries worse. Watch the pursuit tracker and weigh your supplies against the noise; neither Yes nor No is always the quiet option. Camp recovery is limited to 20 health.
+
 The stat checks, success percentages, and random rolls stay hidden; the probability system still runs behind the scenes.
 
 ### 🕹️ Before you head out
 
 - Play with mouse, touch, or **Tab + Enter/Space**.
 - Combat, stealth, scavenging, and equipment shape your chances. Good odds still aren't a guarantee.
-- The menu has a looping animated backdrop and subtle hover effects. Toggle **Motion** to pause animation, **CRT** for scanlines, or open **How to play** for the field manual. Reduced-motion settings use a still backdrop.
+- The menu has a looping animated backdrop and subtle hover effects. Pixel motes and drifting quarantine fog animate behind every game screen. Toggle **Motion** to pause animation, **CRT** for scanlines, or open **How to play** for the field manual. Reduced-motion settings use a still backdrop and stop ambient animation.
 - Runs aren't saved. Refreshing starts you over.
 
 ## ⚙️ Under the hood

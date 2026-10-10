@@ -7,7 +7,7 @@ function ready(c,w,g,l){const s=R.fresh();s.phase='characters';assert(R.selectCh
 let combinations=0;
 for(const c of C.characters)for(const w of C.weapons)for(const g of C.gear)for(const l of C.locations){
   const s=ready(c.id,w.id,g.id,l.id);assert.equal(l.encounters.length,10);assert(R.startRaid(s,seed(42)));assert.equal(new Set(s.encounters.map(e=>e.id)).size,5);
-  for(let tier=0;tier<3;tier++){s.completed=tier;s.tier=tier;for(const e of l.encounters)for(const a of [e.yes,e.no]){const p=R.chance(s,a);assert(p>=10&&p<=90);}}
+  for(let tier=0;tier<3;tier++){s.completed=tier;s.tier=tier;for(const e of l.encounters)for(const a of [e.yes,e.no])for(const pressure of [0,4,8]){s.pressure=pressure;const p=R.chance(s,a);assert(p>=10&&p<=85);}}
   s.completed=0;s.tier=0;
   for(let raid=0;raid<3;raid++){
     for(let i=0;i<5;i++){assert.equal(s.completed,raid);assert(R.resolve(s,'yes',()=>0));assert.equal(R.resolve(s,'yes',()=>0),null);assert(R.next(s));if(i<4)assert.equal(R.next(s),false);}
@@ -16,8 +16,12 @@ for(const c of C.characters)for(const w of C.weapons)for(const g of C.gear)for(c
   }combinations++;
 }
 const dead=ready('echo','bow','boots','metro');dead.completed=2;dead.tier=2;dead.supplies=9;dead.hp=1;R.startRaid(dead,seed(7));R.resolve(dead,'yes',()=>.99999);assert.equal(dead.phase,'death');assert.equal(dead.hp,0);assert.equal(dead.completed,0);assert.equal(dead.tier,0);assert.equal(dead.supplies,0);assert.equal(R.next(dead),false);assert.equal(R.fresh().character,null);
-const difficulty=ready('patch','knife','pack','pharmacy'),a=C.locations[0].encounters[0].no;const p0=R.chance(difficulty,a);difficulty.completed=1;assert.equal(R.chance(difficulty,a),p0-9);difficulty.tier=1;assert.equal(R.bonuses(difficulty,'scavenging'),6);
-// Compare informed play across all character/weapon/gear combinations, rotating
-// locations and choosing the safer check (probability, damage and healing).
-const report=[];for(const c of C.characters)for(const w of C.weapons)for(const g of C.gear){let wins=0,raids=0;const rng=seed(1200);for(let n=0;n<350;n++){const s=ready(c.id,w.id,g.id,C.locations[n%3].id);while(s.completed<3&&s.phase!=='death'){s.location=C.locations[(n+s.completed)%3].id;R.startRaid(s,rng);while(s.phase==='raid'){const e=s.encounters[s.index];const score=x=>R.chance(s,x)-x.damage*.45+x.heal*.2;R.resolve(s,score(e.yes)>=score(e.no)?'yes':'no',rng);if(s.phase==='outcome')R.next(s);}if(s.phase==='summary'){raids++;s.phase='prepare';}else if(s.phase==='victory'){raids++;wins++;}}}report.push({character:c.name,weapon:w.name,gear:g.name,win:Math.round(wins/350*100),raids:Math.round(raids/350*100)/100});}
-report.sort((a,b)=>a.win-b.win);console.log(`PASS: ${combinations} combinations, 30 encounters, bounds, shuffle, upgrades, fragments, difficulty, death, reset, victory and duplicate actions.`);console.log('Simulation: 16,800 seeded runs; informed choices, rotating locations.');console.log(JSON.stringify({lowest:report.slice(0,4),highest:report.slice(-4),mean:report.reduce((n,x)=>n+x.win,0)/report.length},null,2));
+const difficulty=ready('patch','knife','pack','pharmacy'),a=C.locations[0].encounters[0].no;const p0=R.chance(difficulty,a);difficulty.completed=1;assert.equal(R.chance(difficulty,a),p0-10);difficulty.tier=1;assert.equal(R.bonuses(difficulty,'scavenging'),6);
+const pursuit=ready('rook','bat','vest','pharmacy');R.startRaid(pursuit,seed(1));pursuit.encounters=[C.locations[0].encounters[0],C.locations[0].encounters[1]];
+const followup=pursuit.encounters[1].no,quietOdds=R.chance(pursuit,followup),quietDamage=R.damage(pursuit,followup);
+R.resolve(pursuit,'yes',()=>0);assert.equal(pursuit.pressure,3);assert.equal(pursuit.last.noiseChange,3);R.next(pursuit);assert(R.chance(pursuit,followup)<quietOdds);assert(R.damage(pursuit,followup)>quietDamage);
+R.resolve(pursuit,'no',()=>0);assert.equal(pursuit.pressure,1);assert.equal(pursuit.last.noiseChange,-2);
+pursuit.phase='raid';pursuit.index=0;pursuit.pressure=7;R.resolve(pursuit,'yes',()=>.99999);assert.equal(pursuit.pressure,8);
+pursuit.phase='prepare';R.startRaid(pursuit,seed(2));assert.equal(pursuit.pressure,0);pursuit.supplies=100;assert.equal(R.recovery(pursuit),20);
+assert(C.locations.every(l=>l.encounters.some(e=>e.yes.noise<0)&&l.encounters.some(e=>e.no.noise>0)),'Neither answer should always be the quiet route');
+console.log(`PASS: ${combinations} combinations, 30 encounters, bounds, shuffle, upgrades, fragments, difficulty, death, reset, victory, pursuit effects/caps, recovery limits and duplicate actions. Run node balance.cjs for strategy comparisons.`);

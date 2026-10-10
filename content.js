@@ -61,6 +61,14 @@ window.ZContent = (() => {
     {id:'metro',name:'Hollow Metro',label:'UNDERGROUND',description:'Dark tunnels, sleeping hordes and flooded tracks.',hazards:{combat:5,stealth:6,scavenging:1},color:'#77c9c5'},
     {id:'checkpoint',name:'Checkpoint 09',label:'QUARANTINE ZONE',description:'Armored infected, surveillance and military salvage.',hazards:{combat:6,stealth:2,scavenging:4},color:'#deaa67'}
   ];
-  locations.forEach(l => l.encounters = pools[l.id].map((r,i) => ({id:l.id+i,question:r[0],yes:{action:r[1],stat:r[2],base:r[5],damage:r[7]+10,supplies:2+(i%2),heal:i%3===0?4:0},no:{action:r[3],stat:r[4],base:r[6],damage:r[8]+10,supplies:1+(i%2),heal:i%3===1?5:0}})));
+  // Pursuit is a lasting consequence of each route, even when its check succeeds.
+  // Positive values attract infected; negative values shake them off. Neither
+  // Yes nor No always means loud or quiet: the actual action determines it.
+  const pursuit = {
+    pharmacy:[[3,-1],[2,-2],[3,-1],[0,1],[1,2],[3,0],[2,-2],[-1,1],[2,3],[3,-1]],
+    metro:[[-2,3],[3,1],[2,-1],[3,-2],[1,-1],[3,-2],[-1,1],[2,0],[3,-1],[-2,1]],
+    checkpoint:[[3,-2],[1,-1],[3,1],[-2,3],[2,3],[-2,1],[4,-2],[1,-1],[3,-2],[2,3]]
+  };
+  locations.forEach(l => l.encounters = pools[l.id].map((r,i) => ({id:l.id+i,question:r[0],yes:{action:r[1],stat:r[2],base:r[5],damage:r[7]+10,supplies:2+(i%2),heal:i%3===0?4:0,noise:pursuit[l.id][i][0]},no:{action:r[3],stat:r[4],base:r[6],damage:r[8]+10,supplies:1+(i%2),heal:i%3===1?5:0,noise:pursuit[l.id][i][1]}})));
   return {characters,weapons,gear,locations};
 })();
