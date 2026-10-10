@@ -1,0 +1,3 @@
+# Local debugging capture; final menu previews are tracked separately.
+/assets/preview-menu-start.png
+__pycache__/

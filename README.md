@@ -11,7 +11,7 @@ An 8-bit, text-based survival game where every Yes or No could be your last.
 
 **[Play in your browser ↗](https://z-raid.thehawk6353.workers.dev/)** · No install. No account.
 
-![Z-Raid title screen overlooking a ruined city and zombie horde](ReadME_Assets/preview-desktop.png)
+![Z-Raid title screen overlooking a ruined city and zombie horde](assets/preview-menu-motion.png)
 
 </div>
 
@@ -19,19 +19,19 @@ An 8-bit, text-based survival game where every Yes or No could be your last.
 
 1. **Pick your survivor.** Rook brings combat, Echo brings stealth, and Patch brings scavenging. Your choice lasts the whole run.
 2. **Choose your raid.** Explore Mercy Pharmacy, Hollow Metro, or Checkpoint 09 with one weapon and one piece of gear.
-3. **Make the call.** Survive five randomized Yes/No encounters. Compare the odds, rewards, and damage—“No” isn't a free escape.
+3. **Make the call.** Survive five randomized Yes/No encounters. Consider the actions, rewards, and damage—“No” isn't a free escape.
 4. **Bring home the cure.** Each completed raid earns a fragment, upgrades your equipment, and raises the danger. Recover all three fragments to win.
 
 **Four weapons. Four gear items. Thirty encounters. One life.**<br>
 Collect supplies, recover at camp, and adapt your loadout between raids. Die, and the run is over.
 
-![A raid encounter showing two choices, success odds, rewards, and failure damage](ReadME_Assets/preview-raid.png)
+The stat checks, success percentages, and random rolls stay hidden; the probability system still runs behind the scenes.
 
 ### 🕹️ Before you head out
 
 - Play with mouse, touch, or **Tab + Enter/Space**.
 - Combat, stealth, scavenging, and equipment shape your chances. Good odds still aren't a guarantee.
-- Toggle **CRT** for scanlines, or open **How to play** for the field manual.
+- The menu has a looping animated backdrop and subtle hover effects. Toggle **Motion** to pause animation, **CRT** for scanlines, or open **How to play** for the field manual. Reduced-motion settings use a still backdrop.
 - Runs aren't saved. Refreshing starts you over.
 
 ## ⚙️ Under the hood
@@ -43,9 +43,11 @@ Built with **HTML, CSS, and vanilla JavaScript**. Static, browser-based, and fre
 | `content.js` | Survivors, locations, equipment, and encounters |
 | `engine.js` | Probability checks, health, upgrades, and run progression |
 | `game.js` | Screens, controls, and inline pixel SVG artwork |
-| `styles.css` | Responsive retro styling and optional CRT effect |
+| `styles.css` | Responsive retro styling, menu motion, and optional CRT effect |
 
 Encounters are shuffled each raid; stat-based probability checks decide outcomes. Google Fonts are optional, with monospace fallbacks. Rule checks and balance simulations run with `node verify.cjs`.
+
+Implementation details, rules, hosting instructions, and animation tooling are in [DEVELOPMENT.md](DEVELOPMENT.md).
 
 ## 💻 Play locally
 
