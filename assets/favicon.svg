@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <title>Z-Raid cure vial</title>
+  <rect width="32" height="32" fill="#0c1218"/>
+  <path fill="#35434b" d="M4 0h24v2H4zM0 4h2v24H0zM30 4h2v24h-2zM4 30h24v2H4z"/>
+  <rect x="12" y="4" width="8" height="3" fill="#e5e9dd"/>
+  <rect x="13" y="7" width="6" height="4" fill="#abb7b4"/>
+  <path fill="#77c9c5" d="M12 11h8v2h2v13h-2v2h-8v-2h-2V13h2z"/>
+  <rect x="12" y="16" width="8" height="10" fill="#b5d974"/>
+  <rect x="12" y="13" width="2" height="9" fill="#e5e9dd"/>
+  <rect x="17" y="14" width="2" height="2" fill="#b5d974"/>
+</svg>
