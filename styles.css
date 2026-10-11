@@ -34,11 +34,14 @@ body.motion-off button{transition:none}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.crt::after{display:none}.hero::after{display:none}}
 
 /* Encounter scenery is decorative; text and controls keep their own contrast. */
-.raid-body.has-scene{position:relative;isolation:isolate;overflow:hidden}
+.encounter-description{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:flex-end;flex:1 0 auto;padding:16px 0}
+.encounter-description>.screen-heading{width:100%;min-width:0}
 .encounter-scene{position:absolute;inset:0;width:100%;height:100%;opacity:.7;pointer-events:none;z-index:-2;mask-image:linear-gradient(90deg,transparent,#000 16%,#000 84%,transparent),linear-gradient(transparent,#000 16%,#000 84%,transparent);mask-composite:intersect}
-.raid-body.has-scene::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#0c1218c9,#0c12184d);pointer-events:none;z-index:-1}
-.has-scene>.screen-heading h1,.has-scene>.screen-heading .eyebrow,.has-scene>.odds-note{text-shadow:0 2px 4px #050a10,0 0 12px #050a10}
-.has-scene .decision{background:#0c1218ed}.has-scene .decision:hover{background:#1d2d30ed}.has-scene .outcome{background:#0c1218ed}
+.encounter-description::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#0c1218c9,#0c12184d);pointer-events:none;z-index:-1;mask-image:linear-gradient(90deg,transparent,#000 16%,#000 84%,transparent),linear-gradient(transparent,#000 16%,#000 84%,transparent);mask-composite:intersect}
+.encounter-description .screen-heading h1,.encounter-description .screen-heading .eyebrow{text-shadow:0 2px 4px #050a10,0 0 12px #050a10}
+
 .decision-stat{align-self:flex-start;font-size:11px;line-height:1.4;padding:3px 7px;border:1px solid currentColor;border-radius:2px;color:var(--green);white-space:nowrap}
 .decision-stat.combat{color:#deaa67}.decision-stat.stealth{color:#77c9c5}.decision-stat span{font-weight:700}
-@media(max-width:600px){.decision{gap:6px}.decision-stat{font-size:10px;padding:2px 5px}.raid-body.has-scene::before{background:#0c12188c}}
+@media(max-width:600px){.decision{gap:6px}.decision-stat{font-size:10px;padding:2px 5px}.encounter-description::before{background:#0c12188c}}
+
+@media(max-width:600px),(max-height:740px){.encounter-description{padding:0}}
