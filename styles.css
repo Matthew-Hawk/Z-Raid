@@ -53,3 +53,18 @@ body.motion-off button{transition:none}
 @media(max-width:600px){.decision{gap:6px}.decision-stat{font-size:10px;padding:2px 5px}.encounter-description::before{background:#0c12188c}}
 
 @media(max-width:600px),(max-height:740px){.encounter-description{padding:0}}
+
+/* Keep the encounter in view while the desktop debrief fills the scene. */
+.outcome>.encounter-scene{display:none}
+@media(min-width:1000px){
+  [data-phase="outcome"] .raid-body{justify-content:flex-start}
+  .outcome{position:relative;isolation:isolate;overflow:hidden;flex:1;min-height:0;display:flex;align-items:flex-end;padding:28px;background:#101a20;--outcome-tint:rgba(117,155,64,.16)}
+  .outcome.bad{--outcome-tint:rgba(184,65,48,.2)}
+  .outcome>.encounter-scene{display:block}
+  .outcome::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,#0c1218f2 0%,#0c1218d9 38%,#0c121870 70%,#0c121830),linear-gradient(0deg,#0c1218d9,transparent 90%),linear-gradient(var(--outcome-tint),var(--outcome-tint))}
+  .outcome-content{width:100%;max-width:650px}
+  .outcome .screen-heading h1{font-size:clamp(30px,3.8vh,38px)}
+  .outcome .story-copy p{color:var(--text)}
+  .outcome .story-tabs button{background:#101a20d9}
+  .outcome .screen-heading,.outcome .story-copy,.outcome .outcome-reward{text-shadow:0 2px 4px #050a10}
+}
