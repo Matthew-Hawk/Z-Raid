@@ -14,3 +14,4 @@ assets/*
 !assets/favicon.svg
 !assets/survivors-stylized.png
 !assets/equipment-stylized.png
+!assets/locations-stylized.png
