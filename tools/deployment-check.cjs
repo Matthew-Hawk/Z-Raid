@@ -4,7 +4,7 @@ const {resolve}=require('node:path');
 const {createHash}=require('node:crypto');
 const root=resolve(__dirname,'..');
 const base=process.argv[2]||'https://z-raid.thehawk6353.workers.dev/';
-const files=['index.html','styles.css','content.js','stories.js','engine.js','art.js','game.js','assets/title.png','assets/title-loop.gif','assets/favicon.svg','assets/survivors-stylized.png','assets/equipment-stylized.png','assets/locations-stylized.png','assets/encounters-pharmacy.png','assets/encounters-metro.png','assets/encounters-checkpoint.png'];
+const files=['index.html','styles.css','content.js','stories.js','engine.js','art.js','game.js','assets/title.png','assets/title-loop.gif','assets/favicon.svg','assets/survivors-stylized.png','assets/equipment-stylized.png','assets/locations-stylized.png','assets/encounters-pharmacy.png','assets/encounters-metro.png','assets/encounters-checkpoint.png','assets/social-preview.png'];
 const hash=data=>createHash('sha256').update(data).digest('hex');
 const comparable=(file,data)=>/\.(png|gif)$/.test(file)?data:Buffer.from(data.toString('utf8').replace(/\r\n/g,'\n'));
 (async()=>{
