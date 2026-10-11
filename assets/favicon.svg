@@ -1,11 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
-  <title>Z-Raid cure vial</title>
-  <rect width="32" height="32" fill="#0c1218"/>
-  <path fill="#35434b" d="M4 0h24v2H4zM0 4h2v24H0zM30 4h2v24h-2zM4 30h24v2H4z"/>
-  <rect x="12" y="4" width="8" height="3" fill="#e5e9dd"/>
-  <rect x="13" y="7" width="6" height="4" fill="#abb7b4"/>
-  <path fill="#77c9c5" d="M12 11h8v2h2v13h-2v2h-8v-2h-2V13h2z"/>
-  <rect x="12" y="16" width="8" height="10" fill="#b5d974"/>
-  <rect x="12" y="13" width="2" height="9" fill="#e5e9dd"/>
-  <rect x="17" y="14" width="2" height="2" fill="#b5d974"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" shape-rendering="crispEdges"><title>Z-Raid cure vial</title><rect width="64" height="64" fill="#0c1218"/><path fill="#354b52" d="M8 0h48v2H8zM0 8h2v48H0zM62 8h2v48h-2zM8 62h48v2H8z"/><rect x="12" y="59" width="40" height="3" fill="#070e14"/><rect x="19" y="62" width="26" height="1" fill="#121e28"/><rect x="24" y="6" width="16" height="4" fill="#0a1119"/><rect x="25" y="7" width="14" height="2" fill="#c2d5cd"/><rect x="27" y="10" width="10" height="9" fill="#0a1119"/><rect x="28" y="10" width="8" height="6" fill="#697f89"/><rect x="29" y="10" width="2" height="6" fill="#c2d5cd"/><rect x="25" y="17" width="14" height="3" fill="#0a1119"/><polygon points="24,19 40,19 45,24 45,53 41,58 23,58 19,53 19,24" fill="#0a1119"/><polygon points="25,21 39,21 42,25 42,52 39,55 25,55 22,52 22,25" fill="#538c90"/><rect x="24" y="26" width="16" height="25" fill="#79bba9"/><rect x="24" y="34" width="16" height="17" fill="#94bd69"/><rect x="26" y="36" width="12" height="13" fill="#bedb80"/><rect x="25" y="25" width="3" height="22" fill="#e1eed4"/><rect x="28" y="25" width="2" height="8" fill="#bbd9c8"/><rect x="38" y="29" width="2" height="19" fill="#487c78"/><rect x="24" y="51" width="16" height="2" fill="#416c68"/><rect x="30" y="32" width="3" height="2" fill="#cee8ad"/><rect x="35" y="42" width="2" height="2" fill="#e8f1b9"/><rect x="29" y="46" width="2" height="2" fill="#e8f1b9"/><rect x="30" y="17" width="5" height="1" fill="#c2d5cd"/></svg>

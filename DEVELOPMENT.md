@@ -1,6 +1,6 @@
 # Z-Raid
 
-An original 8-bit zombie survival game. Pick a character, raid the ruins, choose your gear, and try to return alive. Recover three cure fragments to save the world. One life per run.
+An original 16-bit-style zombie survival game. Pick a character, raid the ruins, choose your gear, and try to return alive. Recover three cure fragments to save the world. One life per run.
 
 ## Play locally
 
@@ -36,10 +36,12 @@ For other static hosts, upload `index.html`, `styles.css`, `content.js`, `storie
 - `stories.js`: six connected raid stories and action, survivor, equipment and pursuit narration.
 - `engine.js`: centralized probability, health, upgrades, random storyline selection with ordered encounters and guarded state transitions.
 - `game.js`: viewport-aware screens, master/detail selection, four-step preparation, compact raid status, and six-page field manual.
-- `art.js`: original pixel SVG portraits, location scenes, weapons, gear, zombies, fragments and ending artwork.
+- `art.js`: seventeen original 64 × 64 SVG sprites with stepped outlines, multi-tone material shading and finer details: distinct survivor silhouettes, location scenes, weapons, gear, zombies, cure fragments and victory artwork. SVG keeps the assets sharp at every display size; the 16-bit label describes the visual style.
 - `viewport-check.cjs`: browser QA for actual element bounds and panel overflow, all selections, manual pages, both outcomes, summaries and endings. Run with optional width argument (e.g. `375`) to limit to one viewport. `browser-check.cjs` runs this suite.
-- `assets/title.png`: generated pixel-art ruined-city backdrop, created with the built-in image tool. Prompt: “Original cohesive 8-bit scene: ruined city street at night, abandoned pharmacy on left, barricaded military checkpoint in distance, toxic green lights, three small survivors seen from behind facing a shadowy zombie horde. Crisp chunky pixel clusters, limited charcoal navy, muted teal, acidic lime, amber palette. Wide cinematic composition, no text, logos or watermark.”
-- `assets/title-loop.gif`: 48-frame, six-second infinite loop of the title art with animated ground fog, rain/ash and slowly pulsing lights (960 × 384, about 1.9 MB). `tools/animate_hero.py` reproduces it with Pillow. No runtime dependency is required.
+- `assets/title.png`: 16-bit-style ruined-city backdrop, edited with the built-in imagegen tool using the previous backdrop as a composition reference. Final prompt: “Upgrade the whole scene to polished 16-bit era SNES / Mega Drive pixel art, with finer deliberate pixel clusters, rich multi-tone shading, detailed readable sprites and layered atmospheric depth. Retain the wide composition: three survivors at the bottom, ruined pharmacy on the left, infected horde across the street, fortified quarantine checkpoint, abandoned vehicles and moonlit skyline. Navy/teal, moss green contaminated light and muted amber streetlights. Distinct teal courier, broad olive soldier and green medic. Crisp pixel edges; no lettering, logos, UI, watermark or photographic texture.”
+- `assets/favicon.svg`: the same detailed cure-vial sprite rendered on a dark 64px tile.
+- `assets/preview-sprites-16bit.png`: visual reference sheet of all seventeen updated sprites.
+- `assets/title-loop.gif`: 48-frame, six-second infinite loop of the title art with animated ground fog, rain/ash and slowly pulsing lights (1280 × 512, about 2.7 MB). `tools/animate_hero.py` reproduces it with Pillow. No runtime dependency is required.
 - The title menu also has gentle ambient glow, signal breathing, and hover/focus movement. The header's Motion toggle persists your preference locally. Turning it off or enabling reduced motion loads the original still PNG and disables these animations. CRT remains a separate setting.
 - `motion-check.cjs`: development browser verification for animation, hover, motion controls and mobile layout.
 - `verify.cjs`: dependency-free rule verification. Run `node verify.cjs`.

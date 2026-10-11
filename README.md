@@ -5,7 +5,7 @@
 ### One life. Three raids. A world to save.
 
 The dead took the world. **Take it back.**<br>
-An 8-bit, text-based survival game where every Yes or No could be your last.
+A 16-bit-style, text-based survival game where every Yes or No could be your last.
 
 [![Play Z-Raid](https://img.shields.io/badge/PLAY_Z--RAID_%E2%86%97-b5d974?style=for-the-badge&labelColor=0c1218)](https://z-raid.thehawk6353.workers.dev/)
 
@@ -47,7 +47,7 @@ Built with **HTML, CSS, and vanilla JavaScript**. Static, browser-based, and fre
 | `content.js` | Survivors, locations, equipment, and encounters |
 | `engine.js` | Probability checks, health, upgrades, and run progression |
 | `game.js` | Viewport-aware screens, controls, and paginated instructions |
-| `art.js` | Original pixel SVG artwork |
+| `art.js` | Detailed 64px pixel SVG artwork |
 | `styles.css` | Responsive retro styling, menu motion, and optional CRT effect |
 
 Each raid randomly selects one of two ordered stories for its location; stat-based probability checks decide outcomes. Google Fonts are optional, with monospace fallbacks. Rule checks and balance simulations run with `node verify.cjs`.

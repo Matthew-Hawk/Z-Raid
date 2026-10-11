@@ -10,7 +10,7 @@ import random
 from PIL import Image, ImageDraw, ImageFilter
 
 ROOT = Path(__file__).resolve().parent.parent
-WIDTH, HEIGHT, COUNT = 960, 384, 48
+WIDTH, HEIGHT, COUNT = 1280, 512, 48
 base = Image.open(ROOT / 'assets/title.png').convert('RGB').resize(
     (WIDTH, HEIGHT), Image.Resampling.NEAREST)
 random.seed(2086)
@@ -52,7 +52,7 @@ for frame in range(COUNT):
     frames.append(Image.alpha_composite(image, atmosphere).convert('RGB'))
 
 # Share a palette so stationary scenery doesn't shimmer between frames.
-palette = frames[0].quantize(colors=192, method=Image.Quantize.MEDIANCUT)
+palette = frames[0].quantize(colors=256, method=Image.Quantize.MEDIANCUT)
 indexed = [f.quantize(palette=palette, dither=Image.Dither.NONE) for f in frames]
 destination = ROOT / 'assets/title-loop.gif'
 indexed[0].save(destination, save_all=True, append_images=indexed[1:],
