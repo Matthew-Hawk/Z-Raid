@@ -34,7 +34,7 @@ const assert=require('assert');
     for(const id of ['rook','echo','patch']){await click(`[data-id="${id}"]`);await fit(`survivor ${id}`);}
     await click('[data-action="choose-character"]');
     // Browser run uses deterministic success to visit every state without luck.
-    await page.evaluate(()=>{const start=ZRules.startRaid;ZRules.startRaid=s=>{return start(s,()=>window.qaSlice?.99999:0);};const resolve=ZRules.resolve;ZRules.resolve=(s,a)=>resolve(s,a,()=>window.qaFail?.99999:0);});
+    await page.evaluate(()=>{const start=ZRules.startRaid;ZRules.startRaid=s=>{window.qaState=s;return start(s,()=>window.qaSlice?.99999:0);};const resolve=ZRules.resolve;ZRules.resolve=(s,a)=>resolve(s,a,()=>window.qaFail?.99999:0);});
     for(let raid=0;raid<(viewport.width===375?6:3);raid++){
       if(raid===3){await click('[data-action="new"]');await click('[data-action="choose-character"]');}
       else if(raid)await click('[data-action="prepare"]');
@@ -58,6 +58,18 @@ const assert=require('assert');
           await page.setViewportSize(viewport);await fit('resize restored');
         }
         assert(!(await page.locator('.decision-grid').innerText()).includes('%'));
+        const artworkAndStats=await page.evaluate(()=>{
+          const s=window.qaState,e=s.encounters[s.index],c=ZRules.item('characters',s.character);
+          const statsCorrect=['yes','no'].every(answer=>{
+            const stat=e[answer].stat,expected=c[stat]+ZRules.bonuses(s,stat);
+            const badge=document.querySelector(`[data-action="${answer}"] .decision-stat`);
+            return badge?.classList.contains(stat)&&Number(badge.querySelector('span').textContent)===expected;
+          });
+          const scene=document.querySelector('.encounter-scene'),body=document.querySelector('.raid-body');
+          const style=scene&&getComputedStyle(scene);
+          return statsCorrect&&Number(scene?.dataset.scene)===e.scene&&scene?.dataset.location===s.location&&style.opacity==='0.7'&&style.maskImage!=='none'&&Math.abs(scene.getBoundingClientRect().height-body.clientHeight)<2;
+        });
+        assert(artworkAndStats,'Decision stats must match the actual check and artwork must match the current encounter');
         if(viewport.width===375&&raid===0&&i===0)await page.screenshot({path:'assets/preview-mobile-raid.png'});
         if(viewport.width===1440&&raid===0&&i===0)await page.screenshot({path:'assets/preview-raid.png'});
         await click(`[data-action="${i%2?'no':'yes'}"]`);await fit('outcome');await click('[data-story="1"]');await fit('gear and pursuit');await click('[data-story="0"]');

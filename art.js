@@ -54,3 +54,16 @@ window.ZArt = (() => {
     return `<svg class="pixel ${cls}" viewBox="0 0 64 64" aria-hidden="true" shape-rendering="crispEdges">${cache.get(id)}</svg>`;
   };
 })();
+
+/* Narrative scenes use one atlas per location; the SVG viewport isolates a beat. */
+window.ZEncounterArt = (location,scene) => {
+  const atlases={
+    pharmacy:[1122,1402,[0,280,561,841,1122,1402]],
+    metro:[1122,1402,[0,280,561,841,1114,1402]],
+    checkpoint:[1122,1402,[0,280,536,816,1093,1402]]
+  };
+  const [width,height,rows]=atlases[location],row=Math.floor(scene/2);
+  // A small inset removes the seam; generated panels are not always equal-height.
+  const w=width/2-4,h=rows[row+1]-rows[row]-4,x=(scene%2)*width/2+2,y=rows[row]+2;
+  return `<svg class="encounter-scene" data-location="${location}" data-scene="${scene}" viewBox="${x} ${y} ${w} ${h}" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><image href="assets/encounters-${location}.png" width="${width}" height="${height}"/></svg>`;
+};

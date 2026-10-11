@@ -15,3 +15,6 @@ assets/*
 !assets/survivors-stylized.png
 !assets/equipment-stylized.png
 !assets/locations-stylized.png
+!assets/encounters-pharmacy.png
+!assets/encounters-metro.png
+!assets/encounters-checkpoint.png

@@ -175,11 +175,11 @@ window.ZStories = (() => {
     ]
   };
   for (const location of C.locations) {
-    location.storylines = arcs[location.id].map(arc => ({
+    location.storylines = arcs[location.id].map((arc, arcIndex) => ({
       id: arc.id, name: arc.name, mission: arc.mission, ending: arc.ending,
-      encounters: arc.beats.map(row => {
+      encounters: arc.beats.map((row, beatIndex) => {
         const source = location.encounters[row[0]];
-        return {...source, question: row[1], yes: {...source.yes, story: {success:row[2],failure:row[3]}}, no: {...source.no, story: {success:row[4],failure:row[5]}}};
+        return {...source, scene: arcIndex * 5 + beatIndex, question: row[1], yes: {...source.yes, story: {success:row[2],failure:row[3]}}, no: {...source.no, story: {success:row[4],failure:row[5]}}};
       })
     }));
   }
