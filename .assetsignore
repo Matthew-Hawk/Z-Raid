@@ -12,3 +12,5 @@ assets/*
 !assets/title.png
 !assets/title-loop.gif
 !assets/favicon.svg
+!assets/survivors-stylized.png
+!assets/equipment-stylized.png

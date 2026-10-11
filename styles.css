@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=VT323&display=swap');
+.pixel.illustrated{image-rendering:auto}
 .story-tabs{display:flex;gap:6px;margin:12px 0}.story-tabs button{flex:1;font-size:11px;padding:4px 6px}.story-tabs [aria-pressed="true"]{border-color:var(--green);color:var(--green)}.story-copy{text-align:left}.story-copy p{font-size:13px;line-height:1.5}.outcome .outcome-reward{margin:12px 0 0}
 :root{color-scheme:dark;--bg:#0c1218;--panel:#151e25;--line:#35434b;--text:#e5e9dd;--muted:#abb7b4;--green:#b5d974;--red:#f18f7a}
 *{box-sizing:border-box}html{height:100%}body{margin:0;height:100vh;height:100dvh;min-height:540px;display:grid;grid-template-rows:auto minmax(0,1fr) auto;background:var(--bg);color:var(--text);font:14px/1.55 'IBM Plex Mono',Consolas,monospace;isolation:isolate;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}

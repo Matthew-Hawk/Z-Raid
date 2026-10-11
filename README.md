@@ -47,7 +47,7 @@ Built with **HTML, CSS, and vanilla JavaScript**. Static, browser-based, and fre
 | `content.js` | Survivors, locations, equipment, and encounters |
 | `engine.js` | Probability checks, health, upgrades, and run progression |
 | `game.js` | Viewport-aware screens, controls, and paginated instructions |
-| `art.js` | Detailed 64px pixel SVG artwork |
+| `art.js` | Stylized survivor/equipment illustrations and pixel environment art |
 | `styles.css` | Responsive retro styling, menu motion, and optional CRT effect |
 
 Each raid randomly selects one of two ordered stories for its location; stat-based probability checks decide outcomes. Google Fonts are optional, with monospace fallbacks. Rule checks and balance simulations run with `node verify.cjs`.
