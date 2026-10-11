@@ -1,0 +1,14 @@
+{
+  "name": "z-raid",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Z-Raid browser game and Cloudflare Workers deployment",
+  "engines": { "node": ">=22.0.0" },
+  "scripts": {
+    "dev": "node tools/preview.cjs",
+    "deploy": "wrangler deploy",
+    "test": "node verify.cjs && node story-check.cjs",
+    "verify:live": "node tools/deployment-check.cjs"
+  },
+  "devDependencies": { "wrangler": "4.149.0" }
+}

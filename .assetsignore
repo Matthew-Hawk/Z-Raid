@@ -1,0 +1,14 @@
+# Publish only the game; keep repository files and tooling out of the site.
+*
+!index.html
+!styles.css
+!content.js
+!stories.js
+!engine.js
+!art.js
+!game.js
+!assets/
+assets/*
+!assets/title.png
+!assets/title-loop.gif
+!assets/favicon.svg
