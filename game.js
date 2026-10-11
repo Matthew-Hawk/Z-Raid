@@ -9,7 +9,7 @@
     ['Make the call','Yes and No describe specific actions. Each option names the stat it uses and your effective value after equipment and upgrades. Both can succeed or fail. Location and raid difficulty also shape the hidden checks.','Better stats never guarantee survival. Use the action, possible rewards and damage to judge the route.'],
     ['Watch pursuit','Loud routes draw infected even on success. Quiet routes break the trail. Failures also attract attention.','Pursuit runs from 0 to 8. More pursuit makes later checks tougher and injuries worse. Neither Yes nor No is always quiet. Pursuit clears at camp.'],
     ['Camp & upgrades','Camp restores 8 health plus 2 per supply, using at most 6 supplies: up to 20 health, capped at your maximum. All supplies are consumed.','Each completed raid upgrades all eight items by +1 in their specialty. Vest armor and kit healing improve too. Later raids are more dangerous.'],
-    ['Controls & display','Use touch, mouse, or Tab and Enter/Space. Browse the choices, read the selected item, then continue. Back lets you revise your loadout.','Motion toggles animation. CRT adds scanlines. Reduced-motion settings stop animation automatically. Runs are not saved.']
+    ['Controls & display','Use touch, mouse, or Tab and Enter/Space. Browse the choices, read the selected item, then continue. Back lets you revise your loadout.','Motion toggles animation. CRT adds static scanlines, phosphor texture and edge shading. Reduced-motion settings stop animation automatically. Runs are not saved.']
   ];
   const label=s=>s[0].toUpperCase()+s.slice(1);
   const btn=(text,action,cls='primary')=>`<button class="${cls}" data-action="${action}">${text}</button>`;
