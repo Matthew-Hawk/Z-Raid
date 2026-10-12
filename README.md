@@ -9,7 +9,7 @@ A 16-bit-style, story-driven survival game. Pick your survivor, raid the ruins, 
 
 [![Play Z-Raid](https://img.shields.io/badge/PLAY_Z--RAID_%E2%86%97-b5d974?style=for-the-badge&labelColor=0c1218)](https://z-raid.thehawk6353.workers.dev/)
 
-**[Play in your browser ↗](https://z-raid.thehawk6353.workers.dev/)** · No install. No account.
+**[Play in your browser ↗](https://z-raid.pages.dev/)** · No install. No account.
 
 ![Updated Z-Raid title screen with a ruined-city backdrop and survival-game controls](ReadME_Assets/menu.png)
 
@@ -64,6 +64,6 @@ With Node.js 22+, run `npm test` for rule and story checks. More development and
 
 **Do you think you can save the world?**
 
-[Enter the ruins ↗](https://z-raid.thehawk6353.workers.dev/) · [Matthew Hawkins](https://github.com/Matthew-Hawk)
+[Enter the ruins ↗](https://z-raid.pages.dev/)) · [Matthew Hawkins](https://github.com/Matthew-Hawk)
 
 </div>
